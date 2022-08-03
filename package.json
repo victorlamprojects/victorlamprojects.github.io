@@ -1,0 +1,12 @@
+{
+  "name": "victorlamprojects.github.io",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/victorlamprojects/victorlamprojects.github.io.git",
+  "author": "Victor Lam <victorlamprojects@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+	  "build": "yarn clean && cd react-app && yarn build",
+	  "clean": "rm -rf static && find *.* -maxdepth 1 \\! -name 'package.json' -delete"
+  }
+}
