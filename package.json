@@ -6,6 +6,7 @@
   "author": "Victor Lam <victorlamprojects@gmail.com>",
   "license": "MIT",
   "scripts": {
+	  "dev": "cd react-app && yarn start",
 	  "build": "yarn clean && cd react-app && yarn build",
 	  "clean": "rm -rf static && find *.* -maxdepth 1 \\! -name 'package.json' -delete"
   }
