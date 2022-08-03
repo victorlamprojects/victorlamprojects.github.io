@@ -8,7 +8,7 @@ const NavBarContainer = styled.div`
 
 const Logo = styled.span`
 	font-weight: 800;
-	font-family: 'Roboto';
+	font-family: 'Roboto', sans-serif;
 	color: #22D1EE;
 	margin: 0 1rem;
 `

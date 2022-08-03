@@ -4,6 +4,7 @@ const GlobalStyle = createGlobalStyle`
 	.App {
 		margin: 0;
 		overflow: hidden;
+		font-family: 'Inter';
 		background-color: #0E153A;
 		width: 100vw;
 		min-height: 100vh;
