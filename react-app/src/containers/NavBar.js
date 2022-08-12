@@ -4,13 +4,16 @@ import Link from "../common/Link";
 
 const NavBarContainer = styled.div`
 	position: absolute;
+	z-index: 2;
 `
 
 const Logo = styled.span`
+	display: inline-block;
 	font-weight: 800;
 	font-family: 'Roboto', sans-serif;
 	color: #22D1EE;
-	margin: 0 1rem;
+	width: 8rem;
+	text-align: center;
 `
 
 const urls = ["home", "about", "work", "contact"];
@@ -28,6 +31,7 @@ const NavBar = () => {
 			{
 				urls.map(url =>
 					<Link
+						id={`link-${url}`}
 						className="no-select"
 						key={url}
 						onClick={()=>{
