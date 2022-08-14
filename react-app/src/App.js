@@ -39,10 +39,10 @@ const App = () => {
 			const elementTop = containers[i].getBoundingClientRect().top;
 			const elementBottom = containers[i].getBoundingClientRect().bottom;
 
-			if (scrollPos >= elementTop/2 && elementBottom > 100) {
-				containers[i].classList.add("active");
+			if (scrollPos >= elementTop/2 ) {
+				containers[i].querySelector(".content").classList.add("active");
 			} else {
-				containers[i].classList.remove("active");
+				containers[i].querySelector(".content").classList.remove("active");
 			}
 			if(banner){
 				if(scrollPos/2 > elementTop && scrollPos < elementBottom){

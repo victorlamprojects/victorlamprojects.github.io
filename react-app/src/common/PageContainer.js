@@ -3,13 +3,17 @@ import styled from "styled-components";
 export default styled.div`
 	position: relative;
 	height: 100%;
+	width: calc(100% - 4rem);
+	margin: 0 2rem;
 	background-color: inherit;
 	z-index: 3;
-	&.container {
-	  opacity: 0;
-	  transition: 1s all ease;
+	.content {
+		opacity: 0;
+		transform: translateY(100vh);
+		transition: 1.2s all ease;
 	}
-	&.container.active {
+	.content.active {
+		transform: translateY(0);
 		opacity: 1;
 	}
 `
