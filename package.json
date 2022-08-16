@@ -8,6 +8,6 @@
   "scripts": {
 	  "dev": "cd react-app && yarn start",
 	  "build": "yarn clean && cd react-app && yarn build",
-	  "clean": "rm -rf static && find *.* -maxdepth 1 \\! -name 'package.json' -delete"
+	  "clean": "rm -rf static && rm -rf img && find *.* -maxdepth 1 \\! -name 'package.json' -delete"
   }
 }

@@ -5,6 +5,8 @@ import Backdrop from "../common/Backdrop";
 import Link from "../common/Link";
 import SquareBox from "../common/SquareBox";
 import { Grid, Cell } from "../common/Grid";
+import { getRandomValue, getTextWidth } from "../utils/common";
+import { getRandomNonOverlappingLocation } from "../utils/algo";
 
 const Content = styled.div`
 	display: flex;
@@ -59,23 +61,114 @@ const RandomArea = styled.div`
 
 const RandomItem = styled.div`
 	position: absolute;
-	font-size: 1rem;
+	cursor: pointer;
+	-ms-transform: rotate(0deg) scale(1);
+	-webkit-transform: rotate(0deg) scale(1);
+	transform: rotate(0deg) scale(1);
+	transition: all 2s ease-in-out;
+`
+const Tooltip = styled.div`
+	position: absolute;
+	padding: 0.375rem;
+	font-size: 1.25rem;
+	width: auto;
+	background-color: #3d5af1;
+	z-index: 10000;
+	border: 3px solid #E2F3F5;
 `
 
-const skills = ["React.js", "Node.js", "Java", "Spring Framework",
-	"SQL Database", "MongoDB", "DynamoDB", "AWS", "Scrum", "Cloud",
-	"Microservice", "Git", "JavaScript", "HTML", "CSS", "Python", "NLP",
-	"GraphQL", "REST APIs", "Linux"];
+const skills = [
+	{
+		skill: "React.js",
+		level: 5
+	}, {
+		skill: "Node.js",
+		level: 5
+	}, {
+		skill: "Java",
+		level: 5
+	}, {
+		skill: "Spring Framework",
+		level: 4
+	}, {
+		skill: "SQL Database",
+		level: 4
+	}, {
+		skill: "MongoDB",
+		level: 3
+	}, {
+		skill: "DynamoDB",
+		level: 2
+	}, {
+		skill: "AWS",
+		level: 4
+	}, {
+		skill: "Scrum",
+		level: 4
+	}, {
+		skill: "Cloud",
+		level: 3
+	}, {
+		skill: "Microservice",
+		level: 3
+	}, {
+		skill: "Git",
+		level: 5
+	}, {
+		skill: "JavaScript",
+		level: 5
+	}, {
+		skill: "HTML",
+		level: 5
+	}, {
+		skill: "CSS",
+		level: 4
+	}, {
+		skill: "Python",
+		level: 3
+	}, {
+		skill: "NLP",
+		level: 3
+	}, {
+		skill: "GraphQL",
+		level: 2
+	}, {
+		skill: "RESTful APIs",
+		level: 4
+	}, {
+		skill: "Linux",
+		level: 3
+	}];
 
 const About = () => {
 	const randomAreaRef = useRef(null);
-	const [randomWidth, setRandomWidth] = useState(0);
-	const [randomHeight, setRandomHeight] = useState(0);
+	const [renderedSkills, setRenderedSkills] = useState([]);
+	const [tooltip, setTooltip] = useState(null);
 
     useEffect( () => {
         if(randomAreaRef.current){
-            setRandomHeight(randomAreaRef.current.offsetHeight);
-            setRandomWidth(randomAreaRef.current.offsetWidth);
+			const maxWidth = randomAreaRef.current.offsetHeight;
+			const maxHeight = randomAreaRef.current.offsetWidth;
+
+			const randomLocations = [];
+			for(let i=0;i<skills.length;i++){
+				let loc = {};
+				let normalizedLevel = skills[i].level / 5;
+				// Use exponential function to enlarge the scale
+				loc.fontSize = `${Math.exp(normalizedLevel)-0.5}rem`;
+				loc.level = skills[i].level;
+				const dimension = getTextWidth(RandomItem.target, skills[i].skill, loc.fontSize);
+				loc.width = dimension.width;
+				loc.height = dimension.height;
+				loc.word = skills[i].skill;
+
+				let randomLoc = getRandomNonOverlappingLocation(randomLocations, loc, maxWidth, maxHeight);
+				loc.x = randomLoc.x;
+				loc.y = randomLoc.y;
+				randomLocations.push(loc);
+			}
+
+			setRenderedSkills(randomLocations);
         }
 
     }, [randomAreaRef]);
@@ -112,17 +205,30 @@ const About = () => {
 								<SquareBox>
 									<RandomArea ref={randomAreaRef}>
 										{
-											skills.map(skill => {
-												const maxWidth = randomWidth - 150;
-												const maxHeight = randomHeight - 20;
-
-												const getRandomValue = max => Math.floor(Math.random() * (max + 1));
-												const randomColor = `hsl(${getRandomValue(365)}, ${getRandomValue(100)}%,${getRandomValue(100)}%)`
-												const posX = Math.random() * maxWidth;
-												const posY = Math.random() * maxHeight;
-												return <RandomItem key={`skill-${skill}`} style={{color: randomColor, top: posX, left: posY}}>{skill}</RandomItem>
+											renderedSkills.map((skill, i) => {
+												const offsetX = -10;
+												const offsetY = 0;
+												const randomColor = `hsl(${i / renderedSkills.length * 360}, 100%,75%)`
+												return <RandomItem
+														className="item-random"
+														key={`skill-${skill.word}`}
+														style={{
+															color: randomColor,
+															top: skill.y + offsetY,
+															left: skill.x + offsetX,
+															fontSize: skill.fontSize
+														}}
+														onMouseOver={()=>setTooltip({
+															skill: skill.word,
+															level: skill.level,
+															x: skill.x + offsetX + skill.width,
+															y: skill.y + offsetY + skill.height
+														})}
+														onMouseOut={()=>setTooltip(null)}
+													>{skill.word}</RandomItem>
 											})
 										}
+										{ tooltip && <Tooltip style={{top: tooltip.y, left: tooltip.x}}>Level:{[...Array(tooltip.level || 0)].map(()=>"⭐")}</Tooltip> }
 									</RandomArea>
 								</SquareBox>
 							</Skills>

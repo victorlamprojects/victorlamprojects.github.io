@@ -12,8 +12,21 @@ export default styled.div`
 		transform: translateY(100vh);
 		transition: 1.2s all ease;
 	}
+	.content .item-random {
+		opacity: 0;
+		-ms-transform: rotate(0deg) scale(0.1);
+		-webkit-transform: rotate(0deg) scale(0.1);
+		transform: rotate(0deg) scale(0.1);
+		transition: all 2s ease-in-out;
+	}
 	.content.active {
 		transform: translateY(0);
 		opacity: 1;
+	}
+	.content.active .item-random {
+		opacity: 1;
+		-ms-transform: rotate(0deg) scale(1);
+		-webkit-transform: rotate(0deg) scale(1);
+		transform: rotate(0deg) scale(1);
 	}
 `
