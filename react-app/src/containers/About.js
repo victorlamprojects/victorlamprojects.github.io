@@ -188,7 +188,7 @@ const About = () => {
 											I am a full-stack developer from Hong Kong.
 										</p>
 										<p>
-											As a technolgoy enthiusiast,
+											As a technolgoy enthusiast,
 											I strive to solve real-world problem by applying different technology stacks.
 										</p>
 										<p>
