@@ -5,11 +5,12 @@ export const getBreakPoints = ()=>{
 	}
 }
 
-export const getTextWidth = (element, word, fontSize) => {
+export const getTextWidth = (parent, element, word, fontSize) => {
 	const el = document.createElement(element);
-    document.body.appendChild(el);
+    parent.appendChild(el);
 
-	el.style.display = "inline-block";
+	el.style.position = "absolute";
+	el.style.display = "div";
 	el.style.fontSize = fontSize;
     el.textContent = word;
 
@@ -18,7 +19,7 @@ export const getTextWidth = (element, word, fontSize) => {
         height: el.clientHeight
     };
 
-    document.body.removeChild(el);
+	parent.removeChild(el);
 
     return result;
 }
