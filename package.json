@@ -9,6 +9,6 @@
 	  "install": "cd react-app && yarn install",
 	  "dev": "cd react-app && yarn start",
 	  "build": "yarn clean && cd react-app && yarn build",
-	  "clean": "rm -rf static && rm -rf img && find *.* -maxdepth 1 \\! -name 'package.json' -delete"
+	  "clean": "rm -rf static && rm -rf img && find *.* -maxdepth 1 \\! -name 'package.json' \\! -name 'README.md' -delete"
   }
 }
