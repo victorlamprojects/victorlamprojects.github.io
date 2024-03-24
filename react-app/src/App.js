@@ -1,10 +1,10 @@
-import { useRef, useLayoutEffect } from "react";
+import { useRef } from "react";
 import styled from "styled-components";
 import GlobalStyle from "./theme/globalStyles";
 import NavBar from "./containers/NavBar";
 import Home from "./containers/Home";
 import About from "./containers/About";
-import Work from "./containers/Work";
+import Experience from "./containers/Experience";
 import Contact from "./containers/Contact";
 import Content from "./common/Content";
 
@@ -46,7 +46,7 @@ const App = () => {
 			}
 			if(banner){
 				if(scrollPos/2 > elementTop && scrollPos < elementBottom){
-					if(i == 0){
+					if(i === 0){
 						banner.classList.add("home");
 						banner.classList.remove("sub-section");
 						banner.setAttribute("style",`left:50%;width:1500px`);
@@ -76,7 +76,7 @@ const App = () => {
 			<Content onScroll={onScroll}>
 				<Home />
 				<About />
-				<Work />
+				<Experience />
 				<Contact />
 			</Content>
 		</div>

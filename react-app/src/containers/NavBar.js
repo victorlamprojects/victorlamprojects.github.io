@@ -16,7 +16,7 @@ const Logo = styled.span`
 	text-align: center;
 `
 
-const urls = ["home", "about", "work", "contact"];
+const urls = ["home", "about", "experience", "contact"];
 const NavBar = () => {
 	useEffect(()=>{
 		let url = window.location.href.split("/");

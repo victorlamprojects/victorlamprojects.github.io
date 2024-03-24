@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import PageContainer from "../common/PageContainer";
-import Backdrop from "../common/Backdrop";
 import Link from "../common/Link";
 import SquareBox from "../common/SquareBox";
 import { Grid, Cell } from "../common/Grid";
@@ -11,7 +10,6 @@ import { shuffle, getRandomNonOverlappingLocation } from "../utils/algo";
 const Content = styled.div`
 	display: flex;
 	margin: 0 1.5rem;
-	height: 100%;
 `
 
 const Main = styled(Grid)`
@@ -101,7 +99,7 @@ const SKILLSET = [
 		level: 2
 	}, {
 		skill: "AWS",
-		level: 4
+		level: 3
 	}, {
 		skill: "Scrum",
 		level: 4
@@ -137,6 +135,9 @@ const SKILLSET = [
 		level: 4
 	}, {
 		skill: "Linux",
+		level: 3
+	}, {
+		skill: "Scala",
 		level: 3
 	}];
 
@@ -175,71 +176,69 @@ const About = () => {
 
     }, [randomAreaRef]);
 	return (
-		<PageContainer className="container" id="about">
-			<Backdrop>
-				<Content className="content">
-					<Main>
-						<Cell s={12} m={6}>
-							<Profile>
-								<Cell s={12}>
-									<Image src="/img/profile.jpg"/>
-								</Cell>
-								<Cell s={12}>
-									<Description>
-										<p>
-											I am a full-stack developer from Hong Kong.
-										</p>
-										<p>
-											As a technolgoy enthusiast,
-											I strive to solve real-world problem by applying different technology stacks.
-										</p>
-										<p>
-											I have strong interests in web development and cloud technology. For frontend development, I mainly use React.js. Regarding backend development, I use node.js and Java.
-										</p>
-										<ContactMeButton href="#contact">Let's Have a Chat!</ContactMeButton>
-									</Description>
-								</Cell>
-							</Profile>
-						</Cell>
-						<SkillsContainer s={12} m={6}>
-							<h3>Skills and Knowledge</h3>
-							<Skills>
-								<SquareBox>
-									<RandomArea ref={randomAreaRef}>
-										{
-											randomAreaRef.current && renderedSkills.map((skill, i) => {
-												const offsetX = -10;
-												const offsetY = 0;
-												const maxWidth = randomAreaRef.current.offsetHeight || 0;
-												const maxHeight = randomAreaRef.current.offsetWidth || 0;
-												const randomColor = `hsl(${i / renderedSkills.length * 360}, 100%,75%)`
-												return <RandomItem
-														className="item-random"
-														key={`skill-${skill.word}`}
-														style={{
-															color: randomColor,
-															top: skill.y + offsetY,
-															left: skill.x + offsetX,
-															fontSize: skill.fontSize
-														}}
-														onMouseEnter={()=>setTooltip({
-															skill: skill.word,
-															level: skill.level,
-															x: Math.min(skill.x + offsetX + skill.width, maxWidth + offsetX - skill.width),
-															y: Math.min(skill.y + offsetY + skill.height, maxHeight + offsetY - skill.height)
-														})}
-														onMouseOut={()=>setTooltip(null)}
-													>{skill.word}</RandomItem>
-											})
-										}
-										{ tooltip && <Tooltip style={{top: tooltip.y, left: tooltip.x}}>Level:{[...Array(tooltip.level || 0)].map(()=>"⭐")}</Tooltip> }
-									</RandomArea>
-								</SquareBox>
-							</Skills>
-						</SkillsContainer>
-					</Main>
-				</Content>
-			</Backdrop>
+		<PageContainer className="container" id="about" style={{height: "auto"}}>
+			<Content className="content">
+				<Main>
+					<Cell s={12} m={12} l={6}>
+						<Profile>
+							<Cell s={12}>
+								<Image src={process.env.PUBLIC_URL + "/img/profile.jpg"} />
+							</Cell>
+							<Cell s={12}>
+								<Description>
+									<p>
+										I am a full-stack developer from Hong Kong.
+									</p>
+									<p>
+										As a technolgoy enthusiast,
+										I strive to solve real-world problem by applying different technology stacks.
+									</p>
+									<p>
+										I have strong interests in web development and cloud technology. For frontend development, I mainly use React.js. Regarding backend development, I use node.js and Java.
+									</p>
+									<ContactMeButton href="#contact">Let's Have a Chat!</ContactMeButton>
+								</Description>
+							</Cell>
+						</Profile>
+					</Cell>
+					<SkillsContainer s={12} m={12} l={6}>
+						<h3>Skills and Knowledge</h3>
+						<Skills>
+							<SquareBox>
+								<RandomArea ref={randomAreaRef}>
+									{
+										randomAreaRef.current && renderedSkills.map((skill, i) => {
+											const offsetX = -24;
+											const offsetY = 0;
+											const maxWidth = randomAreaRef.current.offsetHeight || 0;
+											const maxHeight = randomAreaRef.current.offsetWidth || 0;
+											const randomColor = `hsl(${i / renderedSkills.length * 360}, 100%,75%)`
+											return <RandomItem
+													className="item-random"
+													key={`skill-${skill.word}`}
+													style={{
+														color: randomColor,
+														top: skill.y + offsetY,
+														left: skill.x + offsetX,
+														fontSize: skill.fontSize
+													}}
+													onMouseEnter={()=>setTooltip({
+														skill: skill.word,
+														level: skill.level,
+														x: Math.min(skill.x + offsetX + skill.width, maxWidth + offsetX - skill.width),
+														y: Math.min(skill.y + offsetY + skill.height, maxHeight + offsetY - skill.height)
+													})}
+													onMouseOut={()=>setTooltip(null)}
+												>{skill.word}</RandomItem>
+										})
+									}
+									{ tooltip && <Tooltip style={{top: tooltip.y, left: tooltip.x}}>Level:{[...Array(tooltip.level || 0)].map(()=>"⭐")}</Tooltip> }
+								</RandomArea>
+							</SquareBox>
+						</Skills>
+					</SkillsContainer>
+				</Main>
+			</Content>
 		</PageContainer>
 	);
 }

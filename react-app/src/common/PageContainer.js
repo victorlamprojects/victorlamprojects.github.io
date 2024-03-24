@@ -5,7 +5,7 @@ export default styled.div`
 	height: 100%;
 	width: calc(100% - 4rem);
 	margin: 0 2rem;
-	background-color: inherit;
+	background: rgba(0, 0, 0, 0.25);
 	z-index: 3;
 	.content {
 		opacity: 0;
